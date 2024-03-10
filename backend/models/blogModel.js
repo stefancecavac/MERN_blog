@@ -11,6 +11,10 @@ const blogSchema = new Schema({
         type:String,
         required:true
     },
+    userId:{
+        type:mongoose.Types.ObjectId,
+        ref:'User'
+    }
   
 }, {timestamps:true})
 

@@ -4,7 +4,7 @@ import validator from 'validator'
 import jwt from 'jsonwebtoken'
 
 const register = async(req, res) => {
-    const {userName , email , password} = req.body
+    const {userName , email , password ,isAdmin} = req.body
 
     try{
         if(!userName || !email || !password){
@@ -28,7 +28,7 @@ const register = async(req, res) => {
         
         const user = await User.create({userName , email , password:hash})
 
-        const token = jwt.sign({_id: user.id}, process.env.SECRET , {expiresIn:'3h'})
+        const token = jwt.sign({_id: user.id , isAdmin}, process.env.SECRET , {expiresIn:'3h'})
         res.cookie('token' , token , {httpOnly:true})
         res.status(201).json(user)
     }
@@ -38,7 +38,7 @@ const register = async(req, res) => {
 }
 
 const login = async(req, res) => {
-    const {email , password} = req.body
+    const {email , password ,isAdmin} = req.body
 
     try{
         if(!email || !password){
@@ -55,7 +55,7 @@ const login = async(req, res) => {
             return res.status(400).json({error: 'incorrect password'})
         }
      
-        const token = jwt.sign({_id: user.id}, process.env.SECRET , {expiresIn:'3h'})
+        const token = jwt.sign({_id: user.id , isAdmin:user.isAdmin}, process.env.SECRET , {expiresIn:'3h'})
 
         res.cookie('token' , token , {httpOnly:true})
         res.status(201).json(user)
