@@ -3,7 +3,7 @@ import mongoose from 'mongoose'
 
 const getAllBlogs = async(req, res) => {
     try{
-        const blog = await Blog.find({}).sort({createdAt:-1})
+        const blog = await Blog.find(req.query).sort({createdAt:-1})
         if(!blog){
             return res.status(404).json({error: 'no blogs found!'})
         }

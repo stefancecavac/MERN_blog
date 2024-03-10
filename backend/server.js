@@ -6,10 +6,15 @@ dotenv.config()
 const app = express()
 app.use(cors())
 app.use(express.json())
+app.use(cookieParser())
 
 import blogRouter from './routes/blogRouter.js'
+import userRouter from './routes/userRouter.js'
+import cookieParser from 'cookie-parser'
 
 app.use('/api/blogs' , blogRouter)
+app.use('/api/user' , userRouter)
+
 
 
 
