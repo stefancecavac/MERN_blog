@@ -6,8 +6,8 @@ import authenticate from '../middleware/authentication.js'
 import authorize from '../middleware/authorization.js'
 
 
-router.use(authenticate)
-router.use(authorize)
+//router.use(authenticate)
+//router.use(authorize)
 router.get('/',getAllBlogs)
 router.get('/my-blogs',getUserBlogs)
 router.get('/:blogId',getSingleBlog)

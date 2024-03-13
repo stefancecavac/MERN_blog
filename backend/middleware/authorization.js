@@ -8,6 +8,7 @@ const authorize = async(req,res , next) => {
         }
 
         const decodedToken = jwt.verify(token , process.env.SECRET)
+       
         if (!decodedToken || !decodedToken.isAdmin) {
             console.log(decodedToken)
             return res.status(403).json({ error: 'Forbidden - Not an admin' });
