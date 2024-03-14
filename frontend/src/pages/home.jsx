@@ -1,8 +1,7 @@
 import { useEffect } from "react"
 import { UseBlogContext } from '../hooks/useBlogHook'
-import Category from "../components/aside/category"
 import BlogCard from "../components/card/blogCard"
-import TopBlogs from "../components/aside/topBlogs"
+import { Link } from "react-router-dom"
 
 const Home = () => {
     const { blogs, dispatch } = UseBlogContext()
@@ -25,18 +24,12 @@ const Home = () => {
     }, [dispatch])
 
     return (
-        <div className=" flex gap-5 mx-56 my-10">
-            <div className="flex flex-col gap-5 w-4/12">
-                <Category></Category>
-                <TopBlogs></TopBlogs>
-            </div>
-
-            <div className="grid grid-cols-2 w-full h-60">
+            <div className="grid grid-cols-2 w-full h-60" >
                 {blogs && blogs.map((blog) => (
-                    <BlogCard key={blog._id} blog={blog}></BlogCard>
+                    <Link className="transition ease-in-out hover:translate-y-1 hover:scale-110" to={`blog/${blog._id}`}
+                     key={blog._id}><BlogCard  blog={blog}></BlogCard></Link>
                 ))}
             </div>
-        </div>
     )
 }
 
