@@ -9,7 +9,9 @@ const Home = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch(`http://localhost:4000/api/blogs`)
+                const response = await fetch(`http://localhost:4000/api/blogs`,{
+                    credentials: "include"
+                })
                 const json = await response.json()
 
                 if (response.ok) {

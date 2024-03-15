@@ -9,7 +9,7 @@ const BlogCard = ({ blog }) => {
             </div>
 
             <div>
-                <p className="text-gray-500">{`${blog.content.substring(0,255)}...`}</p>
+                <p className="text-gray-500 ">{`${blog.content.substring(0,255)}...`}</p>
             </div>
 
             <div className="flex justify-end">
