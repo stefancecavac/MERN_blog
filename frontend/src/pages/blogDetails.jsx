@@ -22,7 +22,7 @@ const BlogDetails = () => {
     }, [dispatch, blogId])
 
     return (
-        <div className="p-5 bg-white rounded-md">
+        <div className="p-5 bg-white rounded-md shadow-md">
             {loading ? (
                 <p className=" flex w-full">loading...</p>
             ) : (

@@ -7,6 +7,10 @@ const blogSchema = new Schema({
         type:String,
         required:true
     },
+    tags:[{
+        type:String,
+        enum:['Culture' , 'Music' , 'Travel' , 'Love' , 'Food' , 'Creativity']
+    }],
     content:{
         type:String,
         required:true

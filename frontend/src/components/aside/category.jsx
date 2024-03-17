@@ -1,21 +1,21 @@
 
 
-const Category = () => {
+const Category = ({onFilter}) => {
 
     return (
-        <div className="flex flex-col bg-white rounded p-5">
+        <div className="flex flex-col bg-white rounded p-5 shadow-md">
             <p className="text-3xl text-green-500 font-bold mb-5 ">Categories</p>
-            <p className="text-xl text-gray-500 my-2">Culture</p>
+            <button className="text-xl text-gray-500 my-2" onClick={() =>onFilter('Culture') }>Culture</button>
             <hr></hr>
-            <p className="text-xl text-gray-500 my-2">Music</p>
+            <button className="text-xl text-gray-500 my-2" onClick={() =>onFilter('Music') }>Music</button>
             <hr></hr>
-            <p className="text-xl text-gray-500 my-2">Travel</p>
+            <button className="text-xl text-gray-500 my-2" onClick={() =>onFilter('Travel') }>Travel</button>
             <hr></hr>
-            <p className="text-xl text-gray-500 my-2">Love</p>
+            <button className="text-xl text-gray-500 my-2" onClick={() =>onFilter('Love') }>Love</button>
             <hr></hr>
-            <p className="text-xl text-gray-500 my-2">Food</p>
+            <button className="text-xl text-gray-500 my-2" onClick={() =>onFilter('Food') }>Food</button>
             <hr></hr>
-            <p className="text-xl text-gray-500 my-2">Creativity</p>
+            <button className="text-xl text-gray-500 my-2" onClick={() =>onFilter('Creativity') }>Creativity</button>
             <hr></hr>
         </div>
     )

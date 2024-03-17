@@ -2,7 +2,7 @@
 const TopBlogs = () => {
 
     return(
-        <div className="flex flex-col bg-white rounded p-5">
+        <div className="flex flex-col bg-white rounded p-5 shadow-md">
             <p className="text-3xl text-green-500 font-bold mb-5 ">Top Blogs:</p>
             <p>1</p>
             <p>2</p>
