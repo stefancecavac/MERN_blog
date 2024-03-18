@@ -9,7 +9,8 @@ const getAllBlogs = async (req, res) => {
         let query = {}
 
         if (req.query.tags) {
-            query.tags = req.query.tags
+            const tags = req.query.tags.split(',');
+            query.tags = { $all: tags };
         }
 
        
