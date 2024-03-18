@@ -2,17 +2,22 @@ import Blog from '../models/blogModel.js'
 import mongoose from 'mongoose'
 
 const getAllBlogs = async (req, res) => {
+    const page = parseInt(req.query.page) || 1
+    const pageSize = 4
 
     try {
         let query = {};
         if (req.query.tags) {
             query.tags = req.query.tags;
         }
-        const blog = await Blog.find(query).sort({ createdAt: -1 }).populate('userId')
+
+        const totalCount = await Blog.countDocuments()
+        const totalPages = Math.ceil(totalCount/pageSize)
+        const blog = await Blog.find(query).skip((page - 1) * pageSize).limit(pageSize).sort({ createdAt: -1 }).populate('userId')
         if (!blog) {
             return res.status(404).json({ error: 'no blogs found!' })
         }
-        res.status(200).json(blog)
+        res.status(200).json({blog ,page,totalPages})
     }
     catch (error) {
         res.status(500).json({ error: error.message })

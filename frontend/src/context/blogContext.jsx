@@ -7,7 +7,8 @@ export const BlogReducer = (state, action) => {
     switch (action.type) {
         case 'SET_BLOGS':
             return {
-                blogs: action.payload
+                blogs: action.payload,
+             
             }
         case 'SET_BLOG':
             return {
@@ -23,7 +24,7 @@ export const BlogReducer = (state, action) => {
 
 export const BlogContextProvider = ({ children }) => {
     const [state, dispatch] = useReducer(BlogReducer, {
-        blogs: [], singleBlog:[]
+        blogs: [], singleBlog:[] 
     })
     console.log(state)
     return (
