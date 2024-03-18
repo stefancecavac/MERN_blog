@@ -1,15 +1,14 @@
 
 
-const Search = ({ blogs , setFiltering}) => {
+const Search = ({handleFilter}) => {
 
-    const filter = (e) => {
-       
-        setFiltering(blogs.filter(blog => blog.title.toLowerCase().includes(e.target.value)))
-        console.log(blogs)
-    }
+   
     return (
         <div className="bg-white shadow-md rounded-md p-5">
-            <input className="" placeholder="Search" onChange={filter}></input>
+            <input className="" placeholder="Search" ></input>
+            <button onClick={() => handleFilter('asc')}>upppp</button>
+            <button onClick={() => handleFilter('dsc')}>downss</button>
+
         </div>
     )
 }

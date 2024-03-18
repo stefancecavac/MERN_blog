@@ -15,12 +15,13 @@ app.use(cookieParser())
 
 import blogRouter from './routes/blogRouter.js'
 import userRouter from './routes/userRouter.js'
+import ratingRouter from './routes/ratingRouter.js'
+
 import cookieParser from 'cookie-parser'
 
 app.use('/api/blogs' , blogRouter)
 app.use('/api/user' , userRouter)
-
-
+app.use('/api/rating' , ratingRouter)
 
 
 

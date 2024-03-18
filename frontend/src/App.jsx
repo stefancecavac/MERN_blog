@@ -18,7 +18,7 @@ function App() {
 
           
             <Routes>
-              <Route index element={<Home></Home>}></Route>
+              <Route path="/" element={<Home></Home>}></Route>
               <Route path="/blog/:blogId" element={<BlogDetails></BlogDetails>}></Route>
 
               <Route path="/user/register" element={<Register></Register>}></Route>

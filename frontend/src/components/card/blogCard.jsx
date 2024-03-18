@@ -12,10 +12,11 @@ const BlogCard = ({ blog }) => {
             ))}</div>
 
             <div>
-                <p className="text-gray-500 ">{`${blog.content.substring(0,255)}...`}</p>
+                <p className="text-gray-500 ">{`${blog.content.substring(0, 255)}...`}</p>
             </div>
 
-            <div className="flex justify-end">
+            <div className="flex justify-between">
+                <p>{blog.avgRating}</p>
                 <p className="text-green-500 mt-5">{new Date(blog.createdAt).toLocaleDateString()}</p>
             </div>
         </div>

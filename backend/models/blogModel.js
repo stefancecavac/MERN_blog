@@ -18,6 +18,13 @@ const blogSchema = new Schema({
     userId:{
         type:mongoose.Types.ObjectId,
         ref:'User'
+    },
+    ratings:[{
+        type:mongoose.Types.ObjectId,   
+        ref:'Rating'
+    }],
+    avgRating:{
+        type:Number
     }
   
 }, {timestamps:true})

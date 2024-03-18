@@ -8,7 +8,6 @@ export const BlogReducer = (state, action) => {
         case 'SET_BLOGS':
             return {
                 blogs: action.payload,
-             
             }
         case 'SET_BLOG':
             return {

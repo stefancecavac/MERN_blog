@@ -13,11 +13,12 @@ const Home = () => {
 
     const [tags, setTags] = useState('')
     const [currentPage, setCurrentPage] = useState(1)
+    const [filterOrder , setFilterOrder] = useState('')
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch(`http://localhost:4000/api/blogs?tags=${tags}&page=${currentPage}`, {
+                const response = await fetch(`http://localhost:4000/api/blogs?tags=${tags}&page=${currentPage}&sortOrder=${filterOrder}`, {
                     credentials: "include"
                 })
                 const json = await response.json()
@@ -32,7 +33,7 @@ const Home = () => {
             }
         }
         fetchData()
-    }, [dispatch, tags, currentPage])
+    }, [dispatch, tags, currentPage,filterOrder])
 
     const handleTags = (tag) => {
         setTags(tag)
@@ -41,6 +42,9 @@ const Home = () => {
         setLoading(true)
         setCurrentPage(page);
     };
+    const handleFilter = (filter) => {
+        setFilterOrder(filter)
+    }
 
     return (
         <div className="flex flex-col h-screen gap-5 sm:flex-row mx-2  md:mx-10 lg:mx-32 my-10">
@@ -50,7 +54,7 @@ const Home = () => {
             </div>
 
             <div className="h-screen md:w-10/12 ">
-                <Search></Search>
+                <Search handleFilter={handleFilter}></Search>
 
                 {loading ? (
                     <div className="" >
