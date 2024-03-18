@@ -38,25 +38,26 @@ const Home = () => {
         setTags(tag)
     }
     const handlePageChange = (page) => {
+        setLoading(true)
         setCurrentPage(page);
     };
 
     return (
         <div className="flex flex-col h-screen gap-5 sm:flex-row mx-2  md:mx-10 lg:mx-32 my-10">
-            <div className="flex flex-col h-screen gap-5 md:w-4/12">
+            <div className="flex flex-col h-screen gap-5 md:w-2/12">
                 <Category handleTags={handleTags}></Category>
                 <TopBlogs></TopBlogs>
             </div>
 
-            <div className="h-screen md:w-8/12 ">
+            <div className="h-screen md:w-10/12 ">
                 <Search></Search>
 
                 {loading ? (
-                    <div className="h-screen w-8/12" >
+                    <div className="" >
                         <p>Loading...</p>
                     </div>
                 ) : (
-                    <div className="grid lg:grid-cols-2 w-full mt-5 gap-5 " >
+                    <div className="grid md:grid-cols-2 lg:grid-cols-3 w-full mt-5 gap-5 " >
                         {blogs && blogs.blog && blogs.blog.map((blog) => (
                             <Link className="transition ease-in-out hover:translate-y-1 hover:scale-105" to={`blog/${blog._id}`}
                                 key={blog._id}><BlogCard blog={blog}></BlogCard></Link>

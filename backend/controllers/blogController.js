@@ -3,7 +3,7 @@ import mongoose from 'mongoose'
 
 const getAllBlogs = async (req, res) => {
     const page = parseInt(req.query.page) || 1
-    const pageSize = 4
+    const pageSize = 6
 
     try {
         let query = {};
@@ -11,7 +11,7 @@ const getAllBlogs = async (req, res) => {
             query.tags = req.query.tags;
         }
 
-        const totalCount = await Blog.countDocuments()
+        const totalCount = await Blog.countDocuments(query)
         const totalPages = Math.ceil(totalCount/pageSize)
         const blog = await Blog.find(query).skip((page - 1) * pageSize).limit(pageSize).sort({ createdAt: -1 }).populate('userId')
         if (!blog) {
