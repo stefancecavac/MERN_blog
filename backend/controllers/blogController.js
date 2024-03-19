@@ -13,12 +13,18 @@ const getAllBlogs = async (req, res) => {
             query.tags = { $all: tags };
         }
 
-       
+
         const totalCount = await Blog.countDocuments(query)
         const totalPages = Math.ceil(totalCount / pageSize)
-        const blog = await Blog.find(query).sort({createdAt:-1}).skip((page - 1) * pageSize).limit(pageSize)
+        const blog = await Blog.find(query).sort({ createdAt: -1 }).skip((page - 1) * pageSize).limit(pageSize)
             .populate('userId')
             .populate('ratings')
+            .populate({
+                path: 'ratings',
+                populate: {
+                    path: 'userId'
+                }
+            });
 
         if (!blog) {
             return res.status(404).json({ error: 'no blogs found!' })
@@ -38,10 +44,10 @@ const getAllBlogs = async (req, res) => {
 
         if (req.query.sortOrder === 'asc') {
             blog.sort((a, b) => b.avgRating - a.avgRating);
-        } 
+        }
         if (req.query.sortOrder === 'dsc') {
             blog.sort((a, b) => a.avgRating - b.avgRating);
-        } 
+        }
 
         res.status(200).json({ blog, page, totalPages })
     }
@@ -75,6 +81,14 @@ const getSingleBlog = async (req, res) => {
 
     try {
         const blog = await Blog.findOne({ _id: blogId })
+            .populate('userId')
+            .populate('ratings')
+            .populate({
+                path: 'ratings',
+                populate: {
+                    path: 'userId'
+                }
+            });
         if (!blog) {
             return res.status(404).json({ error: 'no blogs found!' })
         }

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import { UseBlogContext } from "../hooks/useBlogHook"
+import CommentCard from "../components/comments and rating/commentCard"
 
 
 const BlogDetails = () => {
@@ -29,8 +30,12 @@ const BlogDetails = () => {
                 <div>
                     <p className="text-green-500 text-3xl font-bold mb-10">{singleBlog.title}</p>
                     <p className="text-gray-500">{singleBlog.content}</p>
+                    <CommentCard></CommentCard>
                 </div>
+                 
             )}
+
+
         </div>
     )
 }
