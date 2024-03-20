@@ -61,8 +61,8 @@ const Home = () => {
                         <p>Loading...</p>
                     </div>
                 ) : (
-                    <div className="grid md:grid-cols-2 lg:grid-cols-3 w-full mt-5 gap-5 " >
-                        {blogs && blogs.blog && blogs.blog.map((blog) => (
+                    <div className="grid md:grid-cols-2 lg:grid-cols-3 w-full mt-5 gap-5  " >
+                        {blogs.blog.map((blog) => (
                             <Link className="transition ease-in-out hover:translate-y-1 hover:scale-105" to={`blog/${blog._id}`}
                                 key={blog._id}><BlogCard blog={blog}></BlogCard></Link>
                         ))}

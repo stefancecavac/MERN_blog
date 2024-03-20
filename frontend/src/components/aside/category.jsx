@@ -14,7 +14,6 @@ const Category = ({ handleTags }) => {
         handleTags(updatedTags)
     }
 
-    console.log(selectedTags)
     return (
         <div className="flex flex-col bg-white rounded p-5 shadow-md">
             <p className="text-3xl text-green-500 font-bold mb-5 ">Categories</p>

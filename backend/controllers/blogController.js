@@ -9,14 +9,14 @@ const getAllBlogs = async (req, res) => {
         let query = {}
 
         if (req.query.tags) {
-            const tags = req.query.tags.split(',');
-            query.tags = { $all: tags };
+            const tags = req.query.tags.split(',')
+            query.tags = { $all: tags }
         }
 
 
         const totalCount = await Blog.countDocuments(query)
         const totalPages = Math.ceil(totalCount / pageSize)
-        const blog = await Blog.find(query).sort({ createdAt: -1 }).skip((page - 1) * pageSize).limit(pageSize)
+        const blogs = await Blog.find(query).sort({ createdAt: -1 })
             .populate('userId')
             .populate('ratings')
             .populate({
@@ -26,28 +26,30 @@ const getAllBlogs = async (req, res) => {
                 }
             });
 
-        if (!blog) {
+        if (!blogs) {
             return res.status(404).json({ error: 'no blogs found!' })
         }
 
-        blog.forEach(blog => {
+        blogs.forEach(blog => {
             if (blog.ratings.length > 0) {
                 let totalRating = 0
                 blog.ratings.forEach(rating => {
                     totalRating += rating.ratingNumber
                 });
                 blog.avgRating = totalRating / blog.ratings.length;
+                
             } else {
                 blog.avgRating = 0
             }
         })
 
         if (req.query.sortOrder === 'asc') {
-            blog.sort((a, b) => b.avgRating - a.avgRating);
+            blogs.sort((a, b) => b.avgRating - a.avgRating)
         }
         if (req.query.sortOrder === 'dsc') {
-            blog.sort((a, b) => a.avgRating - b.avgRating);
+            blogs.sort((a, b) => a.avgRating - b.avgRating)
         }
+      const blog = blogs.slice((page - 1) * pageSize, page * pageSize)
 
         res.status(200).json({ blog, page, totalPages })
     }
@@ -92,14 +94,35 @@ const getSingleBlog = async (req, res) => {
         if (!blog) {
             return res.status(404).json({ error: 'no blogs found!' })
         }
-        if (!blog.userId) {
-            blog.views++;
-        }
-
-        blog.save()
         res.status(200).json(blog)
     }
     catch (error) {
+        res.status(500).json({ error: error.message })
+    }
+}
+
+const getTopBlogs = async(req, res) => {
+    try {
+        const blog = await Blog.find().populate('ratings')
+
+        blog.forEach(blog => {
+            if (blog.ratings.length > 0) {
+                let totalRating = 0
+                blog.ratings.forEach(rating => {
+                    totalRating += rating.ratingNumber
+                })
+                blog.avgRating = totalRating / blog.ratings.length
+                
+            } else {
+                blog.avgRating = 0
+            }
+        })
+        blog.sort((a , b) => b.avgRating - a.avgRating)
+        console.log(blog )
+        const topBlogs = blog.slice(0, 5);
+ 
+        res.status(200).json(topBlogs)
+    } catch(error) {
         res.status(500).json({ error: error.message })
     }
 }
@@ -135,4 +158,4 @@ const deleteBlog = async (req, res) => {
     }
 }
 
-export { getAllBlogs, getSingleBlog, postBlog, deleteBlog, getUserBlogs }
+export { getAllBlogs, getSingleBlog, postBlog, deleteBlog, getUserBlogs,getTopBlogs }
