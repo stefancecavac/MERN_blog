@@ -1,3 +1,4 @@
+import RatingCard from "../rating/ratingCard"
 
 const BlogCard = ({ blog }) => {
 
@@ -16,7 +17,13 @@ const BlogCard = ({ blog }) => {
             </div>
 
             <div className="flex justify-between items-center  mt-5">
-                <p>{blog.avgRating}</p>
+
+                <div className="flex gap-2">
+                    {[1, 2, 3, 4, 5].map((index) => (
+                       <RatingCard key={index} index={index} blog={blog}></RatingCard>
+                    ))}
+                </div>
+             
                 <p className="text-green-500">{new Date(blog.createdAt).toLocaleDateString()}</p>
             </div>
         </div>
