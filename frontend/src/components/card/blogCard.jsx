@@ -15,9 +15,9 @@ const BlogCard = ({ blog }) => {
                 <p className="text-gray-500 ">{`${blog.content.substring(0, 255)}...`}</p>
             </div>
 
-            <div className="flex justify-between">
+            <div className="flex justify-between items-center  mt-5">
                 <p>{blog.avgRating}</p>
-                <p className="text-green-500 mt-5">{new Date(blog.createdAt).toLocaleDateString()}</p>
+                <p className="text-green-500">{new Date(blog.createdAt).toLocaleDateString()}</p>
             </div>
         </div>
     )

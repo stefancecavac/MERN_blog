@@ -6,6 +6,7 @@ import BlogDetails from "./pages/blogDetails"
 import Register from "./pages/register"
 import Login from "./pages/login"
 import { UseUserContext } from "./hooks/useUserHook"
+import NotFoundPage from "./pages/404page"
 
 function App() {
 const {user} = UseUserContext()
@@ -25,6 +26,7 @@ const {user} = UseUserContext()
               <Route path="/user/register" element={user ? (<Navigate to='/'></Navigate>):(<Register></Register>)}></Route>
               <Route path="/user/login" element={user ? (<Navigate to='/'></Navigate>):(<Login></Login>)}></Route>
 
+              <Route path="*" element={<NotFoundPage></NotFoundPage>}></Route>
 
             </Routes>
      

@@ -6,6 +6,7 @@ import Search from "../components/filter/search"
 import Category from "../components/aside/category"
 import TopBlogs from "../components/aside/topBlogs"
 import Pagination from "../components/filter/pagination"
+import SkeletonCard from "../components/skeleton/skeletonCard"
 
 const Home = () => {
     const { blogs, dispatch } = UseBlogContext()
@@ -13,7 +14,7 @@ const Home = () => {
 
     const [tags, setTags] = useState('')
     const [currentPage, setCurrentPage] = useState(1)
-    const [filterOrder , setFilterOrder] = useState('')
+    const [filterOrder, setFilterOrder] = useState('')
 
     useEffect(() => {
         const fetchData = async () => {
@@ -24,8 +25,8 @@ const Home = () => {
                 const json = await response.json()
 
                 if (response.ok) {
-                    setLoading(false)
-                    dispatch({ type: 'SET_BLOGS', payload: json })
+                        setLoading(false)
+                        dispatch({ type: 'SET_BLOGS', payload: json })
                 }
             }
             catch (error) {
@@ -33,7 +34,7 @@ const Home = () => {
             }
         }
         fetchData()
-    }, [dispatch, tags, currentPage,filterOrder])
+    }, [dispatch, tags, currentPage, filterOrder])
 
     const handleTags = (tag) => {
         setTags(tag)
@@ -57,8 +58,10 @@ const Home = () => {
                 <Search handleFilter={handleFilter}></Search>
 
                 {loading ? (
-                    <div className="" >
-                        <p>Loading...</p>
+                    <div className="grid md:grid-cols-2 lg:grid-cols-3 w-full mt-5 gap-5  " >
+                        {[1,2,3,4,5,6].map((index) => (
+                            <SkeletonCard key={index}></SkeletonCard>
+                        ))}
                     </div>
                 ) : (
                     <div className="grid md:grid-cols-2 lg:grid-cols-3 w-full mt-5 gap-5  " >
