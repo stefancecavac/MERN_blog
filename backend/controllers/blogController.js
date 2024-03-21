@@ -4,6 +4,7 @@ import mongoose from 'mongoose'
 const getAllBlogs = async (req, res) => {
     const page = parseInt(req.query.page) || 1
     const pageSize = 6
+    const { title } = req.query
 
     try {
         let query = {}
@@ -11,6 +12,11 @@ const getAllBlogs = async (req, res) => {
         if (req.query.tags) {
             const tags = req.query.tags.split(',')
             query.tags = { $all: tags }
+        }
+        if (title) {
+            const titleRegexPattern = title.split('').join('\\s*') + '.*';
+            const titleRegex = new RegExp('^' + titleRegexPattern.replace(/(\w)(\d)/, '$1\\s*$2'), 'i');
+            query.title = { $regex: titleRegex };
         }
 
 
@@ -37,7 +43,7 @@ const getAllBlogs = async (req, res) => {
                     totalRating += rating.ratingNumber
                 });
                 blog.avgRating = totalRating / blog.ratings.length;
-                
+
             } else {
                 blog.avgRating = 0
             }
@@ -49,7 +55,7 @@ const getAllBlogs = async (req, res) => {
         if (req.query.sortOrder === 'dsc') {
             blogs.sort((a, b) => a.avgRating - b.avgRating)
         }
-      const blog = blogs.slice((page - 1) * pageSize, page * pageSize)
+        const blog = blogs.slice((page - 1) * pageSize, page * pageSize)
 
         res.status(200).json({ blog, page, totalPages })
     }
@@ -66,7 +72,7 @@ const getUserBlogs = async (req, res) => {
             return res.status(404).json({ error: 'no blogs found!' })
         }
 
-       
+
         res.status(200).json(blog)
     }
     catch (error) {
@@ -101,13 +107,13 @@ const getSingleBlog = async (req, res) => {
                 totalRating += rating.ratingNumber
             });
             blog.avgRating = totalRating / blog.ratings.length;
-            
+
         } else {
             blog.avgRating = 0
         }
-                
-          
-       
+
+
+
         res.status(200).json(blog)
     }
     catch (error) {
@@ -115,7 +121,7 @@ const getSingleBlog = async (req, res) => {
     }
 }
 
-const getTopBlogs = async(req, res) => {
+const getTopBlogs = async (req, res) => {
     try {
         const blog = await Blog.find().populate('ratings')
 
@@ -126,17 +132,17 @@ const getTopBlogs = async(req, res) => {
                     totalRating += rating.ratingNumber
                 })
                 blog.avgRating = totalRating / blog.ratings.length
-                
+
             } else {
                 blog.avgRating = 0
             }
         })
-        blog.sort((a , b) => b.avgRating - a.avgRating)
-    
+        blog.sort((a, b) => b.avgRating - a.avgRating)
+
         const topBlogs = blog.slice(0, 5);
- 
+
         res.status(200).json(topBlogs)
-    } catch(error) {
+    } catch (error) {
         res.status(500).json({ error: error.message })
     }
 }
@@ -172,4 +178,4 @@ const deleteBlog = async (req, res) => {
     }
 }
 
-export { getAllBlogs, getSingleBlog, postBlog, deleteBlog, getUserBlogs,getTopBlogs }
+export { getAllBlogs, getSingleBlog, postBlog, deleteBlog, getUserBlogs, getTopBlogs }

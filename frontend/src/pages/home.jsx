@@ -15,11 +15,12 @@ const Home = () => {
     const [tags, setTags] = useState('')
     const [currentPage, setCurrentPage] = useState(1)
     const [filterOrder, setFilterOrder] = useState('')
+    const [search , setSearch] = useState('')
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch(`http://localhost:4000/api/blogs?tags=${tags}&page=${currentPage}&sortOrder=${filterOrder}`, {
+                const response = await fetch(`http://localhost:4000/api/blogs?title=${search}&tags=${tags}&page=${currentPage}&sortOrder=${filterOrder}`, {
                     credentials: "include"
                 })
                 const json = await response.json()
@@ -34,7 +35,7 @@ const Home = () => {
             }
         }
         fetchData()
-    }, [dispatch, tags, currentPage, filterOrder])
+    }, [dispatch, tags, currentPage, filterOrder ,search])
 
     const handleTags = (tag) => {
         setTags(tag)
@@ -47,6 +48,10 @@ const Home = () => {
         setFilterOrder(filter)
     }
 
+    const handleSearch = (search) => {
+        setSearch(search)
+    }
+
     return (
         <div className="flex flex-col h-screen gap-5 sm:flex-row mx-2  md:mx-10 lg:mx-32 my-10">
             <div className="flex flex-col h-screen gap-5 md:w-2/12">
@@ -55,7 +60,7 @@ const Home = () => {
             </div>
 
             <div className="h-screen md:w-10/12 ">
-                <Search handleFilter={handleFilter}></Search>
+                <Search handleFilter={handleFilter} handleSearch={handleSearch}></Search>
 
                 {loading ? (
                     <div className="grid md:grid-cols-2 lg:grid-cols-3 w-full mt-5 gap-5  " >

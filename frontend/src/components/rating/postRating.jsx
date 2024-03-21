@@ -38,7 +38,8 @@ const PostRating = ({ blogId }) => {
 
     return (
         <div className="flex flex-col">
-            <input className={`w-full rounded-3xl p-5 border-2 border-gray-200 ${wrongInput && wrongInput.includes('comment') ? ' border-red-500' : ''}`} type="text" placeholder="Your comment here:"  onChange={(e) => setComment(e.target.value)} value={comment}></input>
+            <input placeholder={`${wrongInput.includes('comment') ? 'please fill out this field' : 'your comment here!'}`} className={`w-full rounded-3xl p-5 border-2 border-gray-200 ${wrongInput && wrongInput.includes('comment') ? ' border-red-500 placeholder:text-red-500 ' : ''}`} 
+            type="text"   onChange={(e) => setComment(e.target.value) } value={comment}></input>
             <div className="flex justify-between m-5 items-center">
                 <div className="flex ">
                     {[1, 2, 3, 4, 5].map((index) => (
