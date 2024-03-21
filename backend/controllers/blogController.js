@@ -66,7 +66,7 @@ const getUserBlogs = async (req, res) => {
             return res.status(404).json({ error: 'no blogs found!' })
         }
 
-        console.log(blog)
+       
         res.status(200).json(blog)
     }
     catch (error) {
@@ -94,6 +94,20 @@ const getSingleBlog = async (req, res) => {
         if (!blog) {
             return res.status(404).json({ error: 'no blogs found!' })
         }
+
+        if (blog.ratings.length > 0) {
+            let totalRating = 0
+            blog.ratings.forEach(rating => {
+                totalRating += rating.ratingNumber
+            });
+            blog.avgRating = totalRating / blog.ratings.length;
+            
+        } else {
+            blog.avgRating = 0
+        }
+                
+          
+       
         res.status(200).json(blog)
     }
     catch (error) {
@@ -118,7 +132,7 @@ const getTopBlogs = async(req, res) => {
             }
         })
         blog.sort((a , b) => b.avgRating - a.avgRating)
-        console.log(blog )
+    
         const topBlogs = blog.slice(0, 5);
  
         res.status(200).json(topBlogs)

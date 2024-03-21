@@ -35,10 +35,10 @@ const TopBlogs = () => {
             ) : (
                 <div className="flex flex-col ">
                 {topBLogs.map((blog) => (
-                    <>
-                        <Link to={`blog/${blog._id}`} key={blog._id}><p className="text-gray-500">{blog.title}</p></Link>
+                    <div key={blog._id}>
+                        <Link to={`blog/${blog._id}`} ><p className="text-gray-500">{blog.title}</p></Link>
                         <hr></hr>
-                    </>
+                    </div>
                 ))}
                 </div>
             )}
