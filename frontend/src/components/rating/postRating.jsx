@@ -5,7 +5,7 @@ import { UseBlogContext } from "../../hooks/useBlogHook"
 const PostRating = ({ blogId }) => {
     const [ratingNumber, setRatingNumber] = useState()
     const [comment, setComment] = useState('')
-   
+    const [error , setError] = useState(null)
     const [wrongInput ,setWrongInput] = useState([])
 
     const{dispatch} = UseBlogContext()
@@ -25,11 +25,12 @@ const PostRating = ({ blogId }) => {
 
         if(!response.ok){
             setWrongInput(json.wrongInput)
+            setError(json.error)
         }
 
         if(response.ok){
             setWrongInput(null)
-
+            setError(null)
             setRatingNumber()
             setComment('')
             dispatch({type:'SET_RATING' , payload:json})
@@ -38,7 +39,7 @@ const PostRating = ({ blogId }) => {
 
     return (
         <div className="flex flex-col">
-            <input placeholder={`${wrongInput.includes('comment') ? 'please fill out this field' : 'your comment here!'}`} className={`w-full rounded-3xl p-5 border-2 border-gray-200 ${wrongInput && wrongInput.includes('comment') ? ' border-red-500 placeholder:text-red-500 ' : ''}`} 
+            <input placeholder={`${wrongInput && wrongInput.includes('comment' ) ? 'please fill out this field' : 'your comment here!'}`} className={`w-full rounded-3xl p-5 border-2 border-gray-200 ${wrongInput && wrongInput.includes('comment') ? ' border-red-500 placeholder:text-red-500 ' : ''}`} 
             type="text"   onChange={(e) => setComment(e.target.value) } value={comment}></input>
             <div className="flex justify-between m-5 items-center">
                 <div className="flex ">
@@ -56,6 +57,7 @@ const PostRating = ({ blogId }) => {
                 </div>
                 <button className="bg-gray-200 rounded-full p-3 py-1 border-2 border-gray-200 hover:bg-white text-gray-500" onClick={handleSubmit}>Submit</button>
             </div>
+            {error && <div className="bg-red-200 text-red-500 border-2 border-red-500 rounded-full">{error}</div>}
            
         </div>
     )

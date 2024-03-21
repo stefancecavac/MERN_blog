@@ -65,15 +65,39 @@ const getAllBlogs = async (req, res) => {
 }
 
 const getUserBlogs = async (req, res) => {
+    const page = parseInt(req.query.page) || 1
+    const pageSize = 6
     const userId = req.user._id
+
     try {
-        const blog = await Blog.find({ userId }).sort({ createdAt: -1 }).populate('userId')
+        const totalCount = await Blog.countDocuments()
+        const totalPages = Math.ceil(totalCount / pageSize)
+        const blog = await Blog.find({ userId })
+            .skip((page - 1) * pageSize)
+            .limit(pageSize)
+            .sort({ createdAt: -1 })
+            .populate('userId')
+            .populate('ratings')
+
         if (!blog) {
             return res.status(404).json({ error: 'no blogs found!' })
         }
 
+        blog.forEach(blog => {
+            if (blog.ratings.length > 0) {
+                let totalRating = 0
+                blog.ratings.forEach(rating => {
+                    totalRating += rating.ratingNumber
+                });
+                blog.avgRating = totalRating / blog.ratings.length;
 
-        res.status(200).json(blog)
+            } else {
+                blog.avgRating = 0
+            }
+        })
+
+
+        res.status(200).json({blog , page , totalPages})
     }
     catch (error) {
         res.status(500).json({ error: error.message })

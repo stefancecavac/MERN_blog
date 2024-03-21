@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom"
 import { UseUserContext } from "../../hooks/useUserHook"
 
 
@@ -37,7 +38,7 @@ const MenuModal = ({modal, setModal}) => {
                     </div>
 
                     <div className="h-4/6 bg-green-600">
-                        asd
+                        <Link to={"/blog/my-blogs"}>My Blogs</Link>
                     </div>
 
                     <div className="flex items-center justify-center">

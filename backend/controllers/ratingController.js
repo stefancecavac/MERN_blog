@@ -7,7 +7,7 @@ const postRating = async (req, res) => {
     const userId = req.user._id
 
     const wrongInput=[]
-
+    try {
     if(!ratingNumber){
         wrongInput.push('ratingNumber')
     }
@@ -18,9 +18,18 @@ const postRating = async (req, res) => {
     if(wrongInput.length > 0){
         return res.status(400).json({error: 'please fill out field', wrongInput})
     }
-    try {
+
 
         const rating = await Rating.create({ ratingNumber, comment, userId })
+
+        const usersBlog = await Blog.findById(blogId)
+
+        if (usersBlog.userId.toString() === userId.toString()) {
+           
+            return res.status(400).json({ error: "You can't rate your own blog" })
+           
+        }
+      
         const blog = await Blog.findByIdAndUpdate({ _id: blogId }, { $push: { ratings: rating } }).populate('ratings')
         .populate({
             path:'ratings',
@@ -28,7 +37,7 @@ const postRating = async (req, res) => {
                 path:'userId'
             }
         })
-
+      
         if (blog.ratings.length > 0) {
             let totalRating = 0
             blog.ratings.forEach(rating => {

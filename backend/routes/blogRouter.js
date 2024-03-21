@@ -9,12 +9,13 @@ import authorize from '../middleware/authorization.js'
 
 router.get('/',getAllBlogs)
 router.get('/topBlogs',getTopBlogs)
+router.get('/my-blogs',authenticate,getUserBlogs)
 router.get('/:blogId',getSingleBlog)
 
 
 router.use(authenticate)
 //router.use(authorize)
-router.get('/my-blogs',getUserBlogs)
+
 router.post('/',postBlog)
 router.delete('/:blogId',deleteBlog)
 
