@@ -9,7 +9,8 @@ const blogSchema = new Schema({
     },
     tags:[{
         type:String,
-        enum:['Culture' , 'Music' , 'Travel' , 'Love' , 'Food' , 'Creativity']
+        enum:['Culture' , 'Music' , 'Travel' , 'Love' , 'Food' , 'Creativity'],
+        required:true
     }],
     content:{
         type:String,

@@ -97,7 +97,7 @@ const getUserBlogs = async (req, res) => {
         })
 
 
-        res.status(200).json({blog , page , totalPages})
+        res.status(200).json({ blog, page, totalPages })
     }
     catch (error) {
         res.status(500).json({ error: error.message })
@@ -174,7 +174,26 @@ const getTopBlogs = async (req, res) => {
 const postBlog = async (req, res) => {
     const { title, content, tags, views } = req.body
     const userId = req.user._id
+
+    const wrongInput = []
+
     try {
+        if (!title) {
+            wrongInput.push('title')
+          
+        }
+        if (!content) {
+            wrongInput.push('content')
+        }
+        if (tags.length === 0) {
+            wrongInput.push('tags')
+        }
+    
+        if(wrongInput.length > 0 ){
+            return res.status(400).json({error: 'please fill out all fields' , wrongInput})
+         
+        }
+
         const blog = await Blog.create({ title, content, tags, views, userId })
         res.status(200).json(blog)
     }

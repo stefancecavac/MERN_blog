@@ -30,16 +30,14 @@ export const BlogReducer = (state, action) => {
 
         case 'POST_BLOG':
             return {
-                ...state,
-                blogs: [action.payload, ...state.blogs]
+                    blog: [action.payload]     
             }
-
     }
 }
 
 export const BlogContextProvider = ({ children }) => {
     const [state, dispatch] = useReducer(BlogReducer, {
-        blogs: [], singleBlog: [], topBLogs: [] ,rating :[]
+        blogs:[], singleBlog: [], topBLogs: [] ,rating :[]
     })
     console.log(state)
     return (
