@@ -24,7 +24,6 @@ const PostRating = ({ blogId }) => {
         const json = await response.json()
 
 
-
         if (!response.ok) {
             setWrongInput(json.wrongInput)
             setError(json.error)
@@ -53,7 +52,7 @@ const PostRating = ({ blogId }) => {
     }, [comment])
 
     useEffect(() => {
-        if (wrongInput.length === 0) {
+        if (wrongInput && wrongInput.length === 0) {
           setError(null)
         } 
     }, [wrongInput])

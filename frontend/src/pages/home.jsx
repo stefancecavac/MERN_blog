@@ -53,7 +53,7 @@ const Home = () => {
     }
 
     return (
-        <div className="flex flex-col h-screen gap-5 sm:flex-row mx-2  md:mx-10 lg:mx-32 my-10">
+        <div className="flex flex-col h-screen gap-5 md:flex-row mx-2  md:mx-10 lg:mx-32 my-10">
             <div className="flex flex-col h-screen gap-5 md:w-2/12">
                 <Category handleTags={handleTags}></Category>
                 <TopBlogs></TopBlogs>
@@ -69,7 +69,7 @@ const Home = () => {
                         ))}
                     </div>
                 ) : (
-                    <div className="grid md:grid-cols-2 lg:grid-cols-3 w-full mt-5 gap-5  " >
+                    <div className="grid md:grid-cols-2 lg:grid-cols-3 mt-5 gap-5   " >
                         {blogs.blog.map((blog) => (
                             <Link className="transition ease-in-out hover:translate-y-1 hover:scale-105" to={`blog/${blog._id}`}
                                 key={blog._id}><BlogCard blog={blog}></BlogCard></Link>
