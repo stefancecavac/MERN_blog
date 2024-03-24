@@ -15,7 +15,8 @@ const Home = () => {
     const [tags, setTags] = useState('')
     const [currentPage, setCurrentPage] = useState(1)
     const [filterOrder, setFilterOrder] = useState('')
-    const [search , setSearch] = useState('')
+    const [search, setSearch] = useState('')
+    const [error, setError] = useState(null)
 
     useEffect(() => {
         const fetchData = async () => {
@@ -25,9 +26,14 @@ const Home = () => {
                 })
                 const json = await response.json()
 
+                if (!response.ok) {
+                    setError(true)
+
+                }
                 if (response.ok) {
-                        setLoading(false)
-                        dispatch({ type: 'SET_BLOGS', payload: json })
+                    setError(null)
+                    setLoading(false)
+                    dispatch({ type: 'SET_BLOGS', payload: json })
                 }
             }
             catch (error) {
@@ -35,7 +41,7 @@ const Home = () => {
             }
         }
         fetchData()
-    }, [dispatch, tags, currentPage, filterOrder ,search])
+    }, [dispatch, tags, currentPage, filterOrder, search])
 
     const handleTags = (tag) => {
         setTags(tag)
@@ -64,20 +70,28 @@ const Home = () => {
 
                 {loading ? (
                     <div className="grid md:grid-cols-2 lg:grid-cols-3 w-full mt-5 gap-5  " >
-                        {[1,2,3,4,5,6].map((index) => (
+                        {[1, 2, 3, 4, 5, 6].map((index) => (
                             <SkeletonCard key={index}></SkeletonCard>
                         ))}
                     </div>
                 ) : (
-                    <div className="grid md:grid-cols-2 lg:grid-cols-3 mt-5 gap-5   " >
-                        {blogs.blog.map((blog) => (
-                            <Link className="transition ease-in-out hover:translate-y-1 hover:scale-105" to={`blog/${blog._id}`}
-                                key={blog._id}><BlogCard blog={blog}></BlogCard></Link>
-                        ))}
-                    </div>
+                    error ? (
+                        <p>no blogs found</p>
+                    ) : (
+                        <div>
+                            <div className="grid md:grid-cols-2 lg:grid-cols-3 mt-5 gap-5   " >
+                                {blogs.blog.map((blog) => (
+
+                                    <Link className="transition ease-in-out hover:translate-y-1 hover:scale-105" to={`blog/${blog._id}`}
+                                        key={blog._id}><BlogCard blog={blog}></BlogCard></Link>
+                                ))}
+                            </div>
+                            <Pagination handlePageChange={handlePageChange}></Pagination>
+                        </div>
+                    )
                 )}
 
-                <Pagination handlePageChange={handlePageChange}></Pagination>
+
 
             </div>
         </div>

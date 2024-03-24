@@ -32,7 +32,7 @@ const getAllBlogs = async (req, res) => {
                 }
             });
 
-        if (!blogs) {
+        if (blogs.length === 0) {
             return res.status(404).json({ error: 'no blogs found!' })
         }
 

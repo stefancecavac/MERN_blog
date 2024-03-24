@@ -30,7 +30,7 @@ const BlogDetails = () => {
             ) : (
                 <div>
                     <p className="text-green-500 text-3xl font-bold mb-10">{singleBlog.title}</p>
-                    <p className="text-gray-500">{singleBlog.content}</p>
+                    <p className="text-gray-500 break-words">{singleBlog.content}</p>
                     <CommentCard loading={loading}></CommentCard>
                     <PostRating blogId={blogId}></PostRating>
                 </div>
