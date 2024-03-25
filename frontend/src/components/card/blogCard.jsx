@@ -3,7 +3,7 @@ import RatingCard from "../rating/ratingCard"
 const BlogCard = ({ blog }) => {
 
     return (
-        <div className="bg-white rounded-md p-2 inline-flex flex-col justify-between shadow-md h-full w-screen md:w-full">
+        <div className="bg-white rounded-md p-2 inline-flex flex-col justify-between shadow-md h-full  md:w-full">
             <div className="m-2 flex justify-between mb-6">
                 <p className="text-green-500 text-4xl  h-full p-1 overflow-hidden">{blog.title}</p>
                 <span className="flex items-center gap-1 text-gray-500">Author: <p className="text-xl text-green-500 ">{blog.userId.userName}</p></span>

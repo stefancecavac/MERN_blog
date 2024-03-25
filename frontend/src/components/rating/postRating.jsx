@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { UseBlogContext } from "../../hooks/useBlogHook"
 
 
@@ -37,25 +37,7 @@ const PostRating = ({ blogId }) => {
             dispatch({ type: 'SET_RATING', payload: json })
         }
     }
-    useEffect(() => {
-        if (ratingNumber !== '') {
-            console.log('this ratingNumber');
-            setWrongInput(wrongInput.filter(input => input !== 'ratingNumber'));
-        } 
-    }, [ratingNumber])
-
-    useEffect(() => {
-        if (comment !== '') {
-            console.log('this comment');
-            setWrongInput(wrongInput.filter(input => input !== 'comment'));
-        } 
-    }, [comment])
-
-    useEffect(() => {
-        if (wrongInput && wrongInput.length === 0) {
-          setError(null)
-        } 
-    }, [wrongInput])
+   
 
     return (
         <div className="flex flex-col">

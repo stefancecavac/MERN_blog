@@ -26,9 +26,9 @@ const MenuModal = ({ modal, setModal }) => {
     return (
         <>
 
-            <div onClick={() => setModal('closed')} className={`absolute z-50  h-screen w-9/12  left-0 top-0   ${modal === 'open' ? ' fade-in  bg-black/50 ' : 'hidden'} `} ></div>
+            <div onClick={() => setModal('closed')} className={`absolute z-50  h-screen md:w-9/12  left-0 top-0   ${modal === 'open' ? ' fade-in  bg-black/50 ' : 'hidden'} `} ></div>
 
-            <div className={`z-50 absolute top-0 right-0 h-screen bg-white w-3/12 flex flex-col justify-between p-5   ${modal === 'open' ? ' slide-in-right' : 'hidden'}`}>
+            <div className={`z-50 absolute top-0 right-0 h-screen bg-white w-screen md:w-3/12 flex flex-col justify-between p-5   ${modal === 'open' ? ' slide-in-right' : 'hidden'}`}>
 
 
 
@@ -40,7 +40,7 @@ const MenuModal = ({ modal, setModal }) => {
                     </button>
                     <div className="bg-gray-500 text-5xl text-gray-100 rounded-full flex flex-col justify-center m-auto  w-32 h-32 text-center">{user.userName.charAt(0).toUpperCase()}</div>
                    
-                    <Link className="hover:bg-gray-200 rounded-full p-2  items-center w-3/6 m-auto mt-5 " >
+                    <Link to={`/user/${user._id}`} className="hover:bg-gray-200 rounded-full p-2  items-center w-3/6 m-auto mt-5 " >
                         <div className="flex gap-2 justify-center  w-full">
                             <p className="">{user.userName}</p>
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6">

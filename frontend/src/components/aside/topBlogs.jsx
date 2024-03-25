@@ -28,13 +28,13 @@ const TopBlogs = () => {
 
 
     return (
-        <div className="flex flex-col bg-white rounded p-5 shadow-md">
+        <div className="hidden md:flex flex-col bg-white rounded p-5 shadow-md">
             <p className="text-green-500 text-xl font-bold mb-5">Top Blogs:</p>
             {loading ? (
                 <p>loading</p>
             ) : (
                 <div className="flex flex-col ">
-                {topBLogs.map((blog) => (
+                {topBLogs && topBLogs.map((blog) => (
                     <div key={blog._id}>
                         <Link to={`blog/${blog._id}`} ><p className="text-gray-500">{blog.title}</p></Link>
                         <hr></hr>

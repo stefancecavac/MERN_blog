@@ -43,7 +43,7 @@ const CreateBlog = () => {
         setTags([...tags, value])
     }
 
-    console.log(wrongInput)
+    console.log(tags)
     return (
         <div className=" w-full h-4/5  ">
 
@@ -68,7 +68,7 @@ const CreateBlog = () => {
                         </div>
                         <div className="flex gap-2">{tags.map((value) => (
                             <p className="border-2 border-green-500 rounded-full p-1 px-3 text-green-500 hover:cursor-pointer hover:bg-red-200 hover:border-red-500 hover:text-red-500"
-                                onClick={() => setTags(setTags.filter(tag => tag !== value))} key={value}>{value}</p>
+                                onClick={() => setTags(tags.filter(tag => tag !== value))} key={value}>{value}</p>
 
                         ))}
                         </div>

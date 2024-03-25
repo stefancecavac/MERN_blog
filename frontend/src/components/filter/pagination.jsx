@@ -15,7 +15,7 @@ const Pagination = ({ handlePageChange }) => {
     console.log(pages)
 
     return (
-        <div className="bg-white rounded-full p-2 my-5 flex justify-between" >
+        <div className="bg-white rounded-full p-2 my-5 flex justify-between shadow-md" >
             <button className="disabled:invisible" onClick={() => handlePageChange(1)} disabled={blogs && blogs.page === 1}>
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="3.0" stroke="currentColor"
                     className="text-green-500  w-6 h-6">
